@@ -24,10 +24,10 @@ def fetch_gutenberg(url):
         return None
 
 # --- CLI INTERFACE ---
-# dont forget: cd Code/final_generator
 def generate_from_cli():
     '''
-    Generate text using second order markov chain
+    Starts command line interaction with command line argument to
+    generate text using second order markov chain. 
 
     Usage:
         python3 generate_text.py <source> [num_sentences] [start words...]

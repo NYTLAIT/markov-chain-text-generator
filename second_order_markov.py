@@ -3,6 +3,17 @@ import random
 
 # --- SECOND ORDER MARKOV CHAIN ---
 def make_second_order_markov(tokens):
+    '''
+    Builds a second order Markov chain from a list of tokens.
+    Each state is a (word1, word2) tuple mapping to a frequency
+    dict of possible next words.
+
+    Args:
+        tokens (list[str]): List of word and punctuation tokens
+
+    Returns:
+        dict: Chain of the form {(word1, word2): {next_word: frequency}}
+    '''
     chain = {}
 
     for i in range(len(tokens) - 2):
@@ -35,13 +46,13 @@ def process_random_walk_second_order_start(chain, fallback, start):
     Args:
         chain (dict): Second order maarchov chain
         fallback (callable): Called when start is invalid and provided
-        start (list, optional): 1 or 2 words to begin the walk from. Defaults None.
+        start (list, optional): 1 or 2 words to begin the walk from. Defaults None
 
     Returns:
-        tuple: A (word1, word2) state tuple valid in chain.
+        tuple: A (word1, word2) state tuple valid in chain
 
     Raises:
-        ValueError: If start contains more than 2 words.
+        ValueError: If start contains more than 2 words
     '''
     # Check for valid states
     states = list(chain.keys())
@@ -83,6 +94,18 @@ def process_random_walk_second_order_start(chain, fallback, start):
 
 # RANDOM WALK FOR SECOND ORDER MARKOV CHAIN
 def random_walk_second_order(chain, fallback=None, num_sentences=6, start=None):
+    '''
+    Generate text using a random walk on a second order Markov chain
+
+    Args:
+        chain (dict): Second order Markov chain with general shape - {(word1, word2): {next_word: frequency}}
+        fallback (callable): Passed to process_start; called when start is invalid (default None)
+        num_sentences (int): Number of sentences to generate (default 6)
+        start (list, optional): 1 or 2 words to begin the walk from (default None)
+
+    Returns:
+        str: Generated text with corrected punctuation spacing and capitalized first word.
+    '''
     # get the starting state
     state = process_random_walk_second_order_start(chain, fallback, start)
 
